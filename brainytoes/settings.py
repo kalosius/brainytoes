@@ -18,7 +18,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'your_default_secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://mubsapp.onrender.com", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["https://mubsapp.onrender.com","mubsapp.onrender.com", "127.0.0.1", "localhost"]
 
 
 # Application definition
