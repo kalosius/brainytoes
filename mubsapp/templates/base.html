@@ -7,8 +7,9 @@
     <title>{% block title %}Brainytoes{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-<body class="bg-blue-100">
+<body class="bg-blue-100" id="main-body">
     <!-- main screen navigation bar -->
     <nav class="bg-blue-500 p-4">
         <div class="container mx-auto flex justify-between items-center">
@@ -36,15 +37,15 @@
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         {% if user.is_authenticated %}
-            <a href="{% url 'landing_page' %}">Home</a>
-            <a href="{% url 'books' %}">Books</a>
-            <a href="{% url 'software' %}">Software</a>
-            <a href="{% url 'tutorials' %}">Tutorials</a>
-            <a href="{% url 'account' %}">Account</a>
-            <a href="{% url 'custom_logout' %}">Logout</a>
+            <a href="{% url 'landing_page' %}"><i class="fas fa-home icon"></i>Home</a>
+            <a href="{% url 'books' %}"><i class="fas fa-book icon"></i>Books</a>
+            <a href="{% url 'software' %}"><i class="fas fa-laptop-code icon"></i>Software</a>
+            <a href="{% url 'tutorials' %}"><i class="fas fa-chalkboard-teacher icon"></i>Tutorials</a>
+            <a href="{% url 'account' %}"><i class="fas fa-user icon"></i>Account</a>
+            <a href="{% url 'custom_logout' %}"><i class="fas fa-sign-out-alt icon"></i>Logout</a>
         {% else %}
-            <a href="{% url 'login' %}">Login</a>
-            <a href="{% url 'register' %}">Register</a>
+            <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt icon"></i>Login</a>
+            <a href="{% url 'register' %}"><i class="fas fa-user-plus icon"></i>Register</a>
         {% endif %}
     </div>
     
@@ -64,6 +65,5 @@
     </div>
 
     <script src="{% static 'js/index.js' %}"></script>
-    
 </body>
 </html>
