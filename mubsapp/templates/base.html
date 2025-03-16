@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body class="bg-blue-100">
+    <!-- main screen navigation bar -->
     <nav class="bg-blue-500 p-4">
         <div class="container mx-auto flex justify-between items-center">
             <a href="{% url 'landing_page' %}" class="text-white text-lg font-bold">Brainytoes</a>
@@ -31,7 +32,7 @@
         </div>
     </nav>
 
-    <!-- Sidenav -->
+    <!-- Sidenav for small devices -->
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         {% if user.is_authenticated %}
