@@ -46,3 +46,15 @@ def custom_logout(request):
     response['Expires'] = '0'
     return response
 
+
+def books(request):
+    return render(request, 'books.html')
+
+def software(request):
+    return render(request, 'software.html')
+
+def tutorials(request):
+    return render(request, 'tutorials.html')
+
+def account(request):
+    return render(request, 'account.html')

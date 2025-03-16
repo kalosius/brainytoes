@@ -11,12 +11,18 @@
         <div class="container mx-auto flex justify-between items-center">
             <a href="{% url 'landing_page' %}" class="text-white text-lg font-bold">Brainytoes</a>
             <div>
-                {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}" class="text-white">Logout</a>
-                {% else %}
-                <a href="{% url 'login' %}" class="text-white mr-4">Login</a>
-                <a href="{% url 'register' %}" class="text-white">Register</a>
-                {% endif %}
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li class="inline-block mx-2"><a href="{% url 'books' %}" class="text-white hover:text-gray-300">Books</a></li>
+                        <li class="inline-block mx-2"><a href="{% url 'software' %}" class="text-white hover:text-gray-300">Software</a></li>
+                        <li class="inline-block mx-2"><a href="{% url 'tutorials' %}" class="text-white hover:text-gray-300">Tutorials</a></li>
+                        <li class="inline-block mx-2"><a href="{% url 'account' %}" class="text-white hover:text-gray-300">Account</a></li>
+                        <li class="inline-block mx-2"><a href="{% url 'custom_logout' %}" class="text-white hover:text-gray-300">Logout</a></li>
+                    {% else %}
+                        <li class="inline-block mx-2"><a href="{% url 'login' %}" class="text-white hover:text-gray-300">Login</a></li>
+                        <li class="inline-block mx-2"><a href="{% url 'register' %}" class="text-white hover:text-gray-300">Register</a></li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
     </nav>

@@ -10,4 +10,11 @@ urlpatterns = [
     path('logout/', views.logout_redirect, name='logout'),
     path('logout/', views.custom_logout, name='custom_logout'),  # Add this line
 
+    path('logout/', views.custom_logout, name='custom_logout'),
+    path('books/', views.books, name='books'),
+    path('software/', views.software, name='software'),
+    path('tutorials/', views.tutorials, name='tutorials'),
+    path('account/', views.account, name='account'),
+    path('register/', views.register, name='register'),
+
 ]
