@@ -35,3 +35,15 @@ def landing_page(request):
 def logout_redirect(request):
     logout(request)
     return redirect('login')
+
+
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def custom_logout(request):
+    logout(request)
+    response = redirect('login')  # Redirect to the login page
+    response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+    return response

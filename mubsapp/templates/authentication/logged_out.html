@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logged Out</title>
+    <script type="text/javascript">
+        if (window.history && window.history.pushState) {
+            window.history.pushState(null, null, window.location.href);
+            window.onpopstate = function () {
+                window.history.pushState(null, null, window.location.href);
+            };
+        }
+    </script>
+</head>
+<body>
+    <h1>You have been logged out.</h1>
+    <a href="{% url 'login' %}">Login again</a>
+</body>
+</html>
