@@ -37,7 +37,7 @@ def logout_redirect(request):
     logout(request)
     return redirect('login')
 
-
+@login_required
 def custom_logout(request):
     logout(request)
     response = redirect('login')  # Redirect to the login page
@@ -46,15 +46,18 @@ def custom_logout(request):
     response['Expires'] = '0'
     return response
 
-
+@login_required
 def books(request):
     return render(request, 'books.html')
 
+@login_required
 def software(request):
     return render(request, 'software.html')
 
+@login_required
 def tutorials(request):
     return render(request, 'tutorials.html')
 
+@login_required
 def account(request):
     return render(request, 'account.html')
