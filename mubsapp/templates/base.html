@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Brainytoes{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body class="bg-blue-100">
     <nav class="bg-blue-500 p-4">
         <div class="container mx-auto flex justify-between items-center">
             <a href="{% url 'landing_page' %}" class="text-white text-lg font-bold">Brainytoes</a>
-            <div>
+            <span class="text-white text-3xl cursor-pointer md:hidden" onclick="openNav()">&#9776;</span>
+            <div class="hidden md:block">
                 <ul>
                     {% if user.is_authenticated %}
                         <li class="inline-block mx-2"><a href="{% url 'landing_page' %}" class="text-white hover:text-gray-300">Home</a></li>
@@ -27,6 +30,22 @@
             </div>
         </div>
     </nav>
+
+    <!-- Sidenav -->
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'landing_page' %}">Home</a>
+            <a href="{% url 'books' %}">Books</a>
+            <a href="{% url 'software' %}">Software</a>
+            <a href="{% url 'tutorials' %}">Tutorials</a>
+            <a href="{% url 'account' %}">Account</a>
+            <a href="{% url 'custom_logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
     
     {% if user.is_authenticated and request.resolver_match.url_name == 'landing_page' %}
     <div id="welcome-message" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
@@ -35,21 +54,15 @@
             <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 5.652a1 1 0 10-1.414-1.414L10 7.172 7.066 4.238a1 1 0 10-1.414 1.414L8.586 10l-2.934 2.934a1 1 0 101.414 1.414L10 12.828l2.934 2.934a1 1 0 001.414-1.414L11.414 10l2.934-2.934z"/></svg>
         </span>
     </div>
-    <script>
-        setTimeout(function() {
-            document.getElementById('welcome-message').style.display = 'none';
-        }, 3000);
-
-        document.getElementById('close-message').onclick = function() {
-            document.getElementById('welcome-message').style.display = 'none';
-        };
-    </script>
+    <!-- javascript disappearing message -->
     {% endif %}
-
-
+    
+    
     <div class="container mx-auto mt-10">
         {% block content %}{% endblock %}
     </div>
+
+    <script src="{% static 'js/index.js' %}"></script>
     
 </body>
 </html>
