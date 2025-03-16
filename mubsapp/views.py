@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -36,9 +37,6 @@ def logout_redirect(request):
     logout(request)
     return redirect('login')
 
-
-from django.contrib.auth import logout
-from django.shortcuts import redirect
 
 def custom_logout(request):
     logout(request)
