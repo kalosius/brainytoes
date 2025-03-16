@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Brainytoes{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-blue-100">
+    <nav class="bg-blue-500 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'landing_page' %}" class="text-white text-lg font-bold">Brainytoes</a>
+            <div>
+                <a href="{% url 'login' %}" class="text-white mr-4">Login</a>
+                <a href="{% url 'register' %}" class="text-white">Register</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container mx-auto mt-10">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

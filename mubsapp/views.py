@@ -1,3 +1,30 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib import messages
 
-# Create your views here.
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Registration successful.')
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'authentication/register.html', {'form': form})
+
+def user_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            messages.success(request, 'Login successful.')
+            return redirect('landing_page')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'authentication/login.html', {'form': form})
+
+def landing_page(request):
+    return render(request, 'authentication/landing_page.html')
