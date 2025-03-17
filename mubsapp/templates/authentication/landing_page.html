@@ -88,6 +88,23 @@
 </div>
 
 <script>
+    document.getElementById('sendButton').addEventListener('click', function() {
+        const userInput = document.getElementById('userInput');
+        const chatbox = document.getElementById('chatbox');
+        const message = userInput.value.trim();
+
+        if (message) {
+            const messageElement = document.createElement('div');
+            messageElement.className = 'bg-blue-100 p-2 rounded mb-2';
+            messageElement.innerText = message;
+            chatbox.appendChild(messageElement);
+            userInput.value = '';
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+    });
+</script>
+
+<script>
     document.getElementById('chatbotIcon').addEventListener('click', function() {
         const chatbotSection = document.getElementById('chatbotSection');
         chatbotSection.classList.remove('hidden');
