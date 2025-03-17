@@ -12,4 +12,37 @@
             </div>
         </div>
     </div>
+    <!-- Chatbot Icon -->
+    <div id="chatbotIcon" class="fixed bottom-0 right-0 m-4 cursor-pointer">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712100.png" alt="Chatbot Icon" class="w-16 h-16">
+    </div>
+    <!-- Chatbot Section -->
+    <div id="chatbotSection" class="fixed bottom-0 right-0 m-4 hidden transition-opacity duration-500 opacity-0">
+        <div class="bg-white border rounded-lg shadow-lg p-4 relative">
+            <button id="closeChatbot" class="absolute top-0 right-0 mt-2 mr-2 text-gray-500 hover:text-gray-700">
+                &times;
+            </button>
+            <h2 class="text-xl font-bold mb-2">Chat with us</h2>
+            <div id="chatbox" class="h-64 overflow-y-scroll border p-2 mb-2"></div>
+            <input type="text" id="userInput" placeholder="Type a message..." class="border p-2 rounded w-full mb-2">
+            <button id="sendButton" class="bg-blue-500 text-white px-4 py-2 rounded w-full">Send</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('chatbotIcon').addEventListener('click', function() {
+            const chatbotSection = document.getElementById('chatbotSection');
+            chatbotSection.classList.remove('hidden');
+            setTimeout(() => chatbotSection.classList.remove('opacity-0'), 10);
+        });
+
+        document.getElementById('closeChatbot').addEventListener('click', function() {
+            const chatbotSection = document.getElementById('chatbotSection');
+            chatbotSection.classList.add('opacity-0');
+            chatbotSection.addEventListener('transitionend', () => {
+                if (chatbotSection.classList.contains('opacity-0')) {
+                    chatbotSection.classList.add('hidden');
+                }
+            }, { once: true });
+        });
+    </script>
 {% endblock %}
