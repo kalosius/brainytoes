@@ -2,6 +2,8 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('register/', views.register, name='register'),
@@ -16,5 +18,7 @@ urlpatterns = [
     path('tutorials/', views.tutorials, name='tutorials'),
     path('account/', views.account, name='account'),
     path('register/', views.register, name='register'),
-
 ]
+# Images to load in the browser
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
