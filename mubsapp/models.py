@@ -10,6 +10,7 @@ class Book(models.Model):
     pages = models.IntegerField()
     cover = models.ImageField(upload_to='covers/')
     language = models.CharField(max_length=50)
+    pdf = models.FileField(upload_to='books/pdfs/', null=True, blank=True)
 
     def __str__(self):
         return self.title
