@@ -128,3 +128,5 @@ LOGIN_URL = '/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_URL = '/'
+
+YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')

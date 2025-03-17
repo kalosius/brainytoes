@@ -10,6 +10,7 @@ from django.db.models import Q
 import os
 from googleapiclient.discovery import build
 from dotenv import load_dotenv
+from django.conf import settings
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -114,7 +115,11 @@ def tutorials(request):
         }
         tutorials.append(tutorial)
 
-    return render(request, 'tutorials.html', {'tutorials': tutorials})
+    context = {
+        'tutorials': tutorials,
+        'youtube_api_key': settings.YOUTUBE_API_KEY
+    }
+    return render(request, 'tutorials.html', context)
 
 @login_required
 def account(request):
