@@ -1,3 +1,11 @@
+/* Form inputs */
+
+form input[type="text"]:focus, form input[type="email"]:focus, form input[type="password"]:focus, form input[type="number"]:focus, form input[type="date"]:focus, form select:focus {
+    border-color: lightblue;
+    outline: none;
+}
+
+/* Side Nav for small Screens */
 .sidenav {
             height: 100%;
             width: 0;
@@ -42,3 +50,5 @@
             .sidenav {padding-top: 15px;}
             .sidenav a {font-size: 18px;}
         }
+
+
