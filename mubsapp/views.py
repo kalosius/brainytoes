@@ -7,7 +7,11 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from .models import Book, SoftwareCategory, Software
 from django.db.models import Q
+import os
+from googleapiclient.discovery import build
+from dotenv import load_dotenv
 
+load_dotenv()  # Load environment variables from .env file
 
 def register(request):
     if request.method == 'POST':
@@ -91,7 +95,26 @@ def software_view(request):
 
 @login_required
 def tutorials(request):
-    return render(request, 'tutorials.html')
+    api_key = os.getenv('YOUTUBE_API_KEY')  # Load API key from environment variable
+    youtube = build('youtube', 'v3', developerKey=api_key)
+
+    search_response = youtube.search().list(
+        q='programming tutorials',  # Replace with your search query
+        part='snippet',
+        maxResults=10
+    ).execute()
+
+    tutorials = []
+    for item in search_response['items']:
+        tutorial = {
+            'title': item['snippet']['title'],
+            'description': item['snippet']['description'],
+            'thumbnail': item['snippet']['thumbnails']['default']['url'],
+            'videoId': item['id'].get('videoId', '')  # Use get method to avoid KeyError
+        }
+        tutorials.append(tutorial)
+
+    return render(request, 'tutorials.html', {'tutorials': tutorials})
 
 @login_required
 def account(request):
