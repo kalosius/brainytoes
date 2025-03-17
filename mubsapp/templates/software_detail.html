@@ -26,5 +26,26 @@
         <a href="{{ software.file.url }}" download class="mt-5 inline-block bg-blue-500 text-white py-2 px-4 rounded">Download</a>
         {% endif %}
     </div>
+
+    <!-- New section for other software in the same category -->
+    <div class="mt-10">
+        <h2 class="text-2xl font-bold">Other Software in {{ software.category.name }}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
+            {% for other_software in software.category.software_set.all %}
+                {% if other_software.id != software.id %}
+                <div class="border rounded-lg p-5">
+                    <h3 class="text-xl font-semibold">{{ other_software.name }}</h3>
+                    {% if other_software.cover and other_software.cover.url %}
+                    <img src="{{ other_software.cover.url }}" alt="{{ other_software.name }}" class="w-full h-32 object-cover mt-2">
+                    {% else %}
+                    <img src="{% static 'images/admin.png' %}" alt="Default Cover" class="w-full h-32 object-cover mt-2">
+                    {% endif %}
+                    <p class="mt-2 text-gray-600">{{ other_software.description|truncatewords:20 }}</p>
+                    <a href="{% url 'software_detail' other_software.id %}" class="mt-2 inline-block bg-blue-500 text-white py-2 px-4 rounded">View Details</a>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}

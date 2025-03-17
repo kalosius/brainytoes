@@ -96,9 +96,13 @@ def software_view(request):
     return render(request, 'software.html', context)
 
 @login_required
-def software_detail(request, id):
-    software = get_object_or_404(Software, id=id)
-    return render(request, 'software_detail.html', {'software': software})
+def software_detail(request, software_id):
+    software = get_object_or_404(Software, id=software_id)
+    related_software = software.category.software_set.exclude(id=software_id)
+    return render(request, 'software_detail.html', {
+        'software': software,
+        'related_software': related_software
+    })
 
 @login_required
 def tutorials(request):
