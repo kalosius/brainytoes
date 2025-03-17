@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from .models import Book, SoftwareCategory
+from .models import Book, SoftwareCategory, Software
 from django.db.models import Q
 
 
@@ -67,7 +67,12 @@ def books_view(request):
 @login_required
 def software_view(request):
     categories = SoftwareCategory.objects.all()
-    return render(request, 'software.html', {'categories': categories})
+    selected_category_id = request.GET.get('category')
+    if selected_category_id:
+        software_list = Software.objects.filter(category_id=selected_category_id)
+    else:
+        software_list = Software.objects.all()
+    return render(request, 'software.html', {'categories': categories, 'software_list': software_list})
 
 @login_required
 def tutorials(request):
