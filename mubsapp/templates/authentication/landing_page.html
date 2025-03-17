@@ -88,16 +88,16 @@
 </div>
 
 <script>
-    document.getElementById('sendButton').addEventListener('click', function() {
+    document.getElementById('sendButton').addEventListener('click', async function() {
         const userInput = document.getElementById('userInput');
         const chatbox = document.getElementById('chatbox');
         const message = userInput.value.trim();
 
         if (message) {
             const messageElement = document.createElement('div');
-            messageElement.className = 'bg-blue-100 p-1 ml-10 rounded mb-2';
+            messageElement.className = 'bg-blue-100 p-1 ml-10 rounded mb-2 text-right';
             const timeElement = document.createElement('span');
-            timeElement.className = 'text-gray-500 text-xs float-right';
+            timeElement.className = 'text-gray-500 text-xs float-left';
             const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             timeElement.innerText = currentTime;
             messageElement.innerText = message;
@@ -105,8 +105,21 @@
             chatbox.appendChild(messageElement);
             userInput.value = '';
             chatbox.scrollTop = chatbox.scrollHeight;
+
+            // Simulate AI response
+            setTimeout(() => {
+            const botMessageElement = document.createElement('div');
+            botMessageElement.className = 'bg-gray-100 p-1 mr-10 rounded mb-2 text-left';
+            const botTimeElement = document.createElement('span');
+            botTimeElement.className = 'text-gray-500 text-xs float-right';
+            botTimeElement.innerText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            botMessageElement.innerText = 'This is a simulated response from the AI.';
+            botMessageElement.appendChild(botTimeElement);
+            chatbox.appendChild(botMessageElement);
+            chatbox.scrollTop = chatbox.scrollHeight;
+            }, 1000);
         }
-    });
+        });
 </script>
 
 <script>
