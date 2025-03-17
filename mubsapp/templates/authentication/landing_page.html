@@ -39,31 +39,8 @@
         </div>
     </div>
 
-    <!-- Categories Carousel -->
-    <div class="mt-10">
-        <h2 class="text-2xl font-bold mb-5">Categories of Products</h2>
-        <div id="categoriesCarousel" class="carousel">
-            <!-- Categories will be inserted here by JavaScript -->
-        </div>
-    </div>
-
-    <!-- Books Carousel -->
-    <div class="mt-10">
-        <h2 class="text-2xl font-bold mb-5">Books</h2>
-        <div id="booksCarousel" class="carousel">
-            <!-- Books will be inserted here by JavaScript -->
-        </div>
-    </div>
-
-    <!-- Recent Activities -->
-    <div class="mt-10">
-        <h2 class="text-2xl font-bold mb-5">Recent Activities</h2>
-        <div id="recentActivities" class="activities">
-            <!-- Recent activities will be inserted here by JavaScript -->
-        </div>
-    </div>
-
-    <h2>Categories</h2>
+ 
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Categories</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {% for category in categories %}
             <div class="card bg-white shadow-md rounded-lg p-4">
@@ -72,7 +49,8 @@
         {% endfor %}
     </div>
 
-    <h2>Products</h2>
+    <br><br>
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Products</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {% for product in products %}
             <div class="card bg-white shadow-md rounded-lg p-4">
@@ -81,7 +59,8 @@
         {% endfor %}
     </div>
 
-    <h2>Books</h2>
+    <br><br>
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Books</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {% for book in books %}
             <div class="card bg-white shadow-md rounded-lg p-4">
@@ -89,6 +68,8 @@
             </div>
         {% endfor %}  
     </div>
+
+
 <!-- Chatbot Icon -->
 <div id="chatbotIcon" class="fixed bottom-0 right-0 m-4 cursor-pointer">
     <img src="https://cdn-icons-png.flaticon.com/512/4712/4712100.png" alt="Chatbot Icon" class="w-16 h-16">
@@ -122,50 +103,11 @@
             }
         }, { once: true });
     });
+    
+    
 
-    // Sample data
-    const categories = ['{{products}}'];
-    const books = ['{{books}}'];
-    const activities = ['{{categories}}'];
+   
+  
 
-    // Shuffle function
-    function shuffle(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
-
-    // Shuffle data
-    shuffle(categories);
-    shuffle(books);
-    shuffle(activities);
-
-    // Insert categories into carousel
-    const categoriesCarousel = document.getElementById('categoriesCarousel');
-    categories.forEach(category => {
-        const div = document.createElement('div');
-        div.className = 'carousel-item';
-        div.innerText = category;
-        categoriesCarousel.appendChild(div);
-    });
-
-    // Insert books into carousel
-    const booksCarousel = document.getElementById('booksCarousel');
-    books.forEach(book => {
-        const div = document.createElement('div');
-        div.className = 'carousel-item';
-        div.innerText = book;
-        booksCarousel.appendChild(div);
-    });
-
-    // Insert recent activities
-    const recentActivities = document.getElementById('recentActivities');
-    activities.forEach(activity => {
-        const div = document.createElement('div');
-        div.className = 'activity-item';
-        div.innerText = activity;
-        recentActivities.appendChild(div);
-    });
 </script>
 {% endblock %}
