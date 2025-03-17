@@ -4,18 +4,24 @@
 {% load static %}
     <div class="container mx-auto mt-10">
         <h1>Software</h1>
-        <div class="mt-5">
-            <label for="category" class="block text-sm font-medium text-gray-700">Select Category</label>
-            <select id="category" name="category" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" onchange="filterSoftware()">
-                <option value="">--Select Software Category--</option>
-                {% for category in categories %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-                {% endfor %}
-            </select>
+        <div class="mt-5 flex space-x-4">
+            <div>
+                <label for="category" class="block text-sm font-medium text-gray-700">Select Category</label>
+                <select id="category" name="category" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" onchange="filterSoftware()">
+                    <option value="">--All Software Categories--</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="search" class="block text-sm font-medium text-gray-700">Search Software</label>
+                <input type="text" id="search" name="search" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" onkeyup="filterSoftware()">
+            </div>
         </div>
         <div id="software-list" class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for software in software_list %}
-            <div class="software-item bg-white shadow-md rounded-lg overflow-hidden" data-category="{{ software.category.id }}">
+            <div class="software-item bg-white shadow-md rounded-lg overflow-hidden" data-category="{{ software.category.id }}" data-name="{{ software.name | lower }}">
                 {% if software.cover and software.cover.url %}
                 <img src="{{ software.cover.url }}" alt="{{ software.name }}" class="w-full h-48 object-cover">
                 {% else %}
@@ -70,9 +76,12 @@
     <script>
         function filterSoftware() {
             var selectedCategory = document.getElementById('category').value;
+            var searchQuery = document.getElementById('search').value.toLowerCase();
             var softwareItems = document.querySelectorAll('.software-item');
             softwareItems.forEach(function(item) {
-                if (selectedCategory === "" || item.getAttribute('data-category') === selectedCategory) {
+                var matchesCategory = selectedCategory === "" || item.getAttribute('data-category') === selectedCategory;
+                var matchesSearch = searchQuery === "" || item.getAttribute('data-name').includes(searchQuery);
+                if (matchesCategory && matchesSearch) {
                     item.style.display = 'block';
                 } else {
                     item.style.display = 'none';

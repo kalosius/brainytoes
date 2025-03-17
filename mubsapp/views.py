@@ -66,19 +66,29 @@ def books_view(request):
 
 @login_required
 def software_view(request):
-    categories = SoftwareCategory.objects.all()
-    selected_category_id = request.GET.get('category')
-    if selected_category_id:
-        software_list = Software.objects.filter(category_id=selected_category_id)
-    else:
-        software_list = Software.objects.all()
-    paginator = Paginator(software_list, 2)  # Show 10 software per page.
+    category_id = request.GET.get('category', '')
+    search_query = request.GET.get('search', '').lower()
+    
+    software_list = Software.objects.all()
+    
+    if category_id:
+        software_list = software_list.filter(category_id=category_id)
+    
+    if search_query:
+        software_list = software_list.filter(name__icontains=search_query)
+    
+    paginator = Paginator(software_list, 10)  # Show 10 software items per page
     page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'software.html', {
+    software_list = paginator.get_page(page_number)
+    
+    categories = SoftwareCategory.objects.all()
+    
+    context = {
+        'software_list': software_list,
         'categories': categories,
-        'software_list': page_obj,
-    })
+    }
+    
+    return render(request, 'software.html', context)
 
 @login_required
 def tutorials(request):
