@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',  # Add this before 'django.contrib.staticfiles'
     'django.contrib.staticfiles',
     'mubsapp',
+    'social_django',
+
 ]
 
 MIDDLEWARE = [

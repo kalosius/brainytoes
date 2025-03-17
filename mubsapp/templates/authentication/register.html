@@ -30,5 +30,9 @@
         </div>
     </form>
     <p class="mt-4 text-center">Already have an account? <a href="{% url 'login' %}" class="text-blue-500">Login</a></p>
+    <div class="mt-4 text-center">
+        <p>Or sign in with:</p>
+        <a href="{% url 'social:begin' 'google' %}" class="bg-red-500 text-white px-4 py-2 rounded inline-block mt-2">Google</a>
+    </div>
 </div>
 {% endblock %}
