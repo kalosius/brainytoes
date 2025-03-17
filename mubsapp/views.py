@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm
 from django.contrib import messages
@@ -94,6 +94,11 @@ def software_view(request):
         'categories': categories,
     }
     return render(request, 'software.html', context)
+
+@login_required
+def software_detail(request, id):
+    software = get_object_or_404(Software, id=id)
+    return render(request, 'software_detail.html', {'software': software})
 
 @login_required
 def tutorials(request):

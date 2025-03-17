@@ -21,7 +21,7 @@
         </div>
         <div id="software-list" class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for software in software_list %}
-            <div class="software-item bg-white shadow-md rounded-lg overflow-hidden" data-category="{{ software.category.id }}" data-name="{{ software.name | lower }}">
+            <a href="{% url 'software_detail' software.id %}" class="software-item bg-white shadow-md rounded-lg overflow-hidden" data-category="{{ software.category.id }}" data-name="{{ software.name | lower }}">
                 {% if software.cover and software.cover.url %}
                 <img src="{{ software.cover.url }}" alt="{{ software.name }}" class="w-full h-48 object-cover">
                 {% else %}
@@ -32,7 +32,7 @@
                     <p class="mt-2 text-gray-600">{{ software.description }}</p>
                     <p class="mt-2 text-gray-600">Version: {{ software.version }}</p>
                 </div>
-            </div>
+            </a>
             {% endfor %}
         </div>
         <div class="mt-10">
