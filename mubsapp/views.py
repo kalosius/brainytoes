@@ -59,7 +59,7 @@ def books_view(request):
         Q(author__icontains=query) | 
         Q(isbn__icontains=query)
     )
-    paginator = Paginator(books_list, 5)  # Show 10 books per page
+    paginator = Paginator(books_list, 2)  # Show 10 books per page
     page_number = request.GET.get('page')
     books = paginator.get_page(page_number)
     return render(request, 'books.html', {'books': books})
@@ -72,7 +72,13 @@ def software_view(request):
         software_list = Software.objects.filter(category_id=selected_category_id)
     else:
         software_list = Software.objects.all()
-    return render(request, 'software.html', {'categories': categories, 'software_list': software_list})
+    paginator = Paginator(software_list, 2)  # Show 10 software per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'software.html', {
+        'categories': categories,
+        'software_list': page_obj,
+    })
 
 @login_required
 def tutorials(request):
