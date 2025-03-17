@@ -26,6 +26,9 @@
         {% endfor %}
     </div>
 
+    <!-- Error message for credentials -->
+    <div id="error-message" class="container mx-auto mt-10 text-red-500"></div>
+
     <script>
         const API_KEY = '{{ youtube_api_key }}';
 
@@ -51,7 +54,10 @@
                         results.appendChild(video);
                     });
                 })
-                .catch(error => console.error('Error fetching YouTube videos:', error));
+                .catch(error => {
+                    console.error('Error fetching YouTube videos:', error);
+                    document.getElementById('error-message').innerText = 'Error fetching YouTube videos. Please ensure your API credentials are set up correctly.';
+                });
         }
     </script>
 
