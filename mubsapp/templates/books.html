@@ -3,6 +3,37 @@
 {% block content %}
 
     <div class="container mx-auto mt-10">
-        <h1>Books</h1>
+        <h1 class="text-3xl font-bold mb-6">Books</h1>
+        
+        <!-- Search Bar -->
+        <form method="GET" action="{% url 'books' %}" class="mb-4">
+            <input type="text" name="q" placeholder="Search by title, author, ISBN..." class="border p-2 w-full" value="{{ request.GET.q }}">
+            <button type="submit" class="bg-blue-500 text-white p-2 mt-2">Search</button>
+        </form>
+
+        <!-- Books List -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for book in books %}
+                <div class="border p-4 rounded-lg shadow-lg">
+                    <img src="{{ book.image_url }}" alt="{{ book.title }}" class="w-full h-48 object-cover mb-4">
+                    <h2 class="text-xl font-bold">{{ book.title }}</h2>
+                    <p class="text-gray-700">Author: {{ book.author }}</p>
+                    <p class="text-gray-700">{{ book.description }}</p>
+                </div>
+            {% empty %}
+                <p>No books found.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-4">
+            <span class="mr-2">Page {{ books.number }} of {{ books.paginator.num_pages }}</span>
+            {% if books.has_previous %}
+                <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ books.previous_page_number }}" class="bg-gray-300 p-2">Previous</a>
+            {% endif %}
+            {% if books.has_next %}
+                <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ books.next_page_number }}" class="bg-gray-300 p-2">Next</a>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}

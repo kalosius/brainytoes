@@ -4,6 +4,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from .models import Book
+from django.db.models import Q
 
 
 def register(request):
@@ -47,9 +50,20 @@ def custom_logout(request):
     response['Expires'] = '0'
     return response
 
+# Books
 @login_required
-def books(request):
-    return render(request, 'books.html')
+def books_view(request):
+    query = request.GET.get('q', '')
+    books_list = Book.objects.filter(
+        Q(title__icontains=query) | 
+        Q(author__icontains=query) | 
+        Q(isbn__icontains=query)
+    )
+    paginator = Paginator(books_list, 10)  # Show 10 books per page
+    page_number = request.GET.get('page')
+    books = paginator.get_page(page_number)
+    
+    return render(request, 'books.html', {'books': books})
 
 @login_required
 def software(request):
