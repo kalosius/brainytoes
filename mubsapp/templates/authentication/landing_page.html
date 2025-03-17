@@ -95,8 +95,13 @@
 
         if (message) {
             const messageElement = document.createElement('div');
-            messageElement.className = 'bg-blue-100 p-2 rounded mb-2';
+            messageElement.className = 'bg-blue-100 p-1 ml-10 rounded mb-2';
+            const timeElement = document.createElement('span');
+            timeElement.className = 'text-gray-500 text-xs float-right';
+            const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            timeElement.innerText = currentTime;
             messageElement.innerText = message;
+            messageElement.appendChild(timeElement);
             chatbox.appendChild(messageElement);
             userInput.value = '';
             chatbox.scrollTop = chatbox.scrollHeight;
