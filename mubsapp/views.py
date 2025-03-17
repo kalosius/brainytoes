@@ -38,10 +38,20 @@ def user_login(request):
         form = AuthenticationForm()
     return render(request, 'authentication/login.html', {'form': form})
 
+# Index View
 @login_required
 def landing_page(request):
-    return render(request, 'authentication/landing_page.html')
+    categories = SoftwareCategory.objects.all()
+    products = Software.objects.all()
+    books = Book.objects.all()
+    context = {
+        'categories': categories,
+        'products': products,
+        'books': books
+    }
+    return render(request, 'authentication/landing_page.html', context)
 
+# Logout view
 @login_required
 def logout_redirect(request):
     logout(request)
