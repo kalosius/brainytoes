@@ -1,10 +1,11 @@
 from django.shortcuts import redirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.contrib.auth import update_session_auth_hash
 from .models import Book, SoftwareCategory, Software
 from django.db.models import Q
 import os
@@ -121,6 +122,27 @@ def tutorials(request):
     }
     return render(request, 'tutorials.html', context)
 
+
+
 @login_required
 def account(request):
-    return render(request, 'account.html')
+    if request.method == 'POST':
+        user_form = UserChangeForm(request.POST, instance=request.user)
+        password_form = PasswordChangeForm(request.user, request.POST)
+        if user_form.is_valid():
+            user_form.save()
+            messages.success(request, 'Your profile has been updated successfully.')
+        if password_form.is_valid():
+            user = password_form.save()
+            update_session_auth_hash(request, user)  # Important to keep the user logged in
+            messages.success(request, 'Your password has been updated successfully.')
+        return redirect('account')
+    else:
+        user_form = UserChangeForm(instance=request.user)
+        password_form = PasswordChangeForm(request.user)
+    
+    context = {
+        'user_form': user_form,
+        'password_form': password_form
+    }
+    return render(request, 'account.html', context)
