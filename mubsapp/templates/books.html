@@ -28,12 +28,25 @@
         <!-- Pagination -->
         <div class="mt-4">
             <span class="mr-2">Page {{ books.number }} of {{ books.paginator.num_pages }}</span>
-            {% if books.has_previous %}
-                <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ books.previous_page_number }}" class="bg-gray-300 p-2">Previous</a>
-            {% endif %}
-            {% if books.has_next %}
-                <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ books.next_page_number }}" class="bg-gray-300 p-2">Next</a>
-            {% endif %}
+            <div class="inline-flex space-x-2">
+                {% if books.has_previous %}
+                    <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ books.previous_page_number }}" class="bg-gray-300 p-2 rounded">
+                        &laquo; Previous
+                    </a>
+                {% endif %}
+                {% for num in books.paginator.page_range %}
+                    {% if books.number == num %}
+                        <span class="bg-blue-500 text-white p-2 rounded">{{ num }}</span>
+                    {% else %}
+                        <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ num }}" class="bg-gray-300 p-2 rounded">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if books.has_next %}
+                    <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ books.next_page_number }}" class="bg-gray-300 p-2 rounded">
+                        Next &raquo;
+                    </a>
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}
