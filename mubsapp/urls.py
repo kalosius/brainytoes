@@ -10,7 +10,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('', views.user_login, name='login'),
     path('landing_page', views.landing_page, name='landing_page'),
-    # path('logout/', views.logout_redirect, name='logout'),
+    path('logout/', views.logout_redirect, name='logout'),
     path('logout/', views.custom_logout, name='custom_logout'),
     path('books/', views.books_view, name='books'),
     path('software/', views.software_view, name='software'),
@@ -18,8 +18,8 @@ urlpatterns = [
     path('tutorials/', views.tutorials, name='tutorials'),
     path('account/', views.account, name='account'),
     # path('register/', views.register, name='register'),
-    path('auth/', include('django.contrib.auth.urls')),
-    path('social/', include('social_django.urls', namespace='social')),
+    # path('auth/', include('django.contrib.auth.urls')),
+    # path('social/', include('social_django.urls', namespace='social')),
 
 ]
 # Images to load in the browser

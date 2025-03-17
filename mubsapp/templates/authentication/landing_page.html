@@ -4,7 +4,35 @@
 
     <div class="container mx-auto mt-10">
         <div class="text-center">
-            <h1 class="text-4xl font-bold mb-5">Welcome to Brainytoes</h1>
+            <h1 class="text-4xl font-bold mb-5 text-green-500" id="welcomeText">Welcome to Brainytoes By <span class="text-red-500">"Aloisius Kasozi"</span></h1>
+            <script>
+                const textElement = document.getElementById('welcomeText');
+                const text = textElement.innerText;
+                let index = 0;
+                let deleting = false;
+                let hasTyped = false;
+
+                function typeEffect() {
+                    if (deleting) {
+                        textElement.innerText = text.substring(0, index--);
+                        if (index < 0) {
+                            deleting = false;
+                            hasTyped = true;
+                        }
+                    } else {
+                        textElement.innerText = text.substring(0, index++);
+                        if (index > text.length) {
+                            deleting = true;
+                        }
+                    }
+                    if (!hasTyped) {
+                        setTimeout(typeEffect, 200);
+                    }
+                }
+
+                typeEffect();
+            </script>
+            </script>
             <p class="mb-5">Search and download software, PDFs, and watch videos on how to install the downloaded software.</p>
             <input type="text" placeholder="Search..." class="border p-2 rounded w-full max-w-md mx-auto mb-5">
             <div class="flex justify-center">
