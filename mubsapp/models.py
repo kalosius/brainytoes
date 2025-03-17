@@ -31,6 +31,8 @@ class Software(models.Model):
     cover = models.ImageField(upload_to='software_covers/')
     file = models.FileField(upload_to='software_files/')
     category = models.ForeignKey(SoftwareCategory, on_delete=models.CASCADE)
+    size = models.FloatField(default=0.0)
+    description = models.TextField(max_length=500, null=True, blank=True)
 
     def __str__(self):
         return self.name
