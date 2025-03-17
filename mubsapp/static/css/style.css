@@ -51,4 +51,24 @@ form input[type="text"]:focus, form input[type="email"]:focus, form input[type="
             .sidenav a {font-size: 18px;}
         }
 
+/* Container padding for smaller devices */
+.container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+    .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
 
