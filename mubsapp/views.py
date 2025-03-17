@@ -87,7 +87,6 @@ def software_view(request):
         'software_list': software_list,
         'categories': categories,
     }
-    
     return render(request, 'software.html', context)
 
 @login_required
