@@ -15,6 +15,12 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
+class SoftwareCategory(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 class Software(models.Model):
     name = models.CharField(max_length=200)
     developer = models.CharField(max_length=100)
@@ -23,6 +29,7 @@ class Software(models.Model):
     license = models.CharField(max_length=50)
     platform = models.CharField(max_length=50)
     file = models.FileField(upload_to='software_files/')
+    category = models.ForeignKey(SoftwareCategory, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

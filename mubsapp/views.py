@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from .models import Book
+from .models import Book, SoftwareCategory
 from django.db.models import Q
 
 
@@ -62,12 +62,12 @@ def books_view(request):
     paginator = Paginator(books_list, 5)  # Show 10 books per page
     page_number = request.GET.get('page')
     books = paginator.get_page(page_number)
-    
     return render(request, 'books.html', {'books': books})
 
 @login_required
-def software(request):
-    return render(request, 'software.html')
+def software_view(request):
+    categories = SoftwareCategory.objects.all()
+    return render(request, 'software.html', {'categories': categories})
 
 @login_required
 def tutorials(request):
