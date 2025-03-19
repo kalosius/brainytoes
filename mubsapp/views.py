@@ -1,4 +1,3 @@
-from django.shortcuts import redirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm
@@ -12,6 +11,7 @@ import os
 from googleapiclient.discovery import build
 from dotenv import load_dotenv
 from django.conf import settings
+
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -166,8 +166,7 @@ def account(request):
     }
     return render(request, 'account.html', context)
 
-from django.shortcuts import render
-from .models import Book, Software
+
 
 def search_results(request):
     query = request.GET.get('query')
