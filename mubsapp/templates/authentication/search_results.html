@@ -15,7 +15,7 @@
 
     <h1 class="text-2xl font-bold mb-5">Search Results for "{{ query }}"</h1>
     <!-- Books Results -->
-    <h2 class="text-xl font-semibold mb-4">Books</h2>
+    <h2 class="text-xl font-semibold mb-4">Books ({{books.count}})</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {% for book in books %}
         <div class="border p-4 rounded-lg shadow-lg">
@@ -36,7 +36,7 @@
     </div>
 
     <!-- Software Searches -->
-    <h2 class="text-xl font-semibold mb-4 mt-10">Software</h2>
+    <h2 class="text-xl font-semibold mb-4 mt-10">Software ({{software.count}})</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {% for software in software %}
         <a href="{% url 'software_detail' software.id %}" class="software-item bg-white shadow-md rounded-lg overflow-hidden" data-category="{{ software.category.id }}" data-name="{{ software.name | lower }}">
