@@ -20,8 +20,7 @@
                 <img src="{% static 'images/icons/whitefa.png' %}" alt="Logo" class="h-10 w-10 mr-1">
                 Brainytoes
             </a>
-            <span class="text-white text-3xl cursor-pointer md:hidden" onclick="openNav()">&#9776;</span>
-            <div class="hidden md:block">
+            <span class="text-white text-3xl cursor-pointer md:hidden" onclick="openNav()">&#9776;</span>            <div class="hidden md:block">
                 <ul>
                     {% if user.is_authenticated %}
                         <li class="inline-block mx-2"><a href="{% url 'landing_page' %}" class="text-white hover:text-gray-300">Home</a></li>

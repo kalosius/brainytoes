@@ -13,7 +13,7 @@ form input[type="text"]:focus, form input[type="email"]:focus, form input[type="
             z-index: 1;
             top: 0;
             left: 0;
-            background-color: #ebf8ff;
+            background-color: #3B82F6;
             overflow-x: hidden;
             transition: 0.5s;
             padding-top: 60px;
@@ -23,7 +23,7 @@ form input[type="text"]:focus, form input[type="email"]:focus, form input[type="
             padding: 8px 8px 8px 32px;
             text-decoration: none;
             font-size: 25px;
-            color: #818181;
+            color: #ffffff;
             display: flex; /* Changed to flex for alignment */
             align-items: center; /* Center align items */
             transition: 0.3s;
@@ -35,7 +35,7 @@ form input[type="text"]:focus, form input[type="email"]:focus, form input[type="
         }
 
         .sidenav a:hover {
-            color: #f1f1f1;
+            color: #ffffff;
         }
 
         .sidenav .closebtn {
