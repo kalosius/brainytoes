@@ -165,3 +165,17 @@ def account(request):
         'password_form': password_form
     }
     return render(request, 'account.html', context)
+
+from django.shortcuts import render
+from .models import Book, Software
+
+def search_results(request):
+    query = request.GET.get('query')
+    books = Book.objects.filter(title__icontains=query)
+    software = Software.objects.filter(name__icontains=query)
+    context = {
+        'query': query,
+        'books': books,
+        'software': software,
+    }
+    return render(request, 'authentication/search_results.html', context)

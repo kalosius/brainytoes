@@ -17,6 +17,7 @@ urlpatterns = [
     path('software/<int:software_id>/', views.software_detail, name='software_detail'),
     path('tutorials/', views.tutorials, name='tutorials'),
     path('account/', views.account, name='account'),
+    path('search/', views.search_results, name='search_results'),
     # path('register/', views.register, name='register'),
     # path('auth/', include('django.contrib.auth.urls')),
     # path('social/', include('social_django.urls', namespace='social')),
