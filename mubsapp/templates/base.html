@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- favicon -->
+    <link rel="icon" href="{% static 'images/icons/favicon.svg' %}" type="image/x-icon">
     <title>{% block title %}Brainytoes{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -14,7 +16,10 @@
     <!-- main screen navigation bar -->
     <nav class="bg-blue-500 p-4">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="{% url 'landing_page' %}" class="text-white text-lg font-bold">Brainytoes</a>
+            <a href="{% url 'landing_page' %}" class="flex items-center text-white text-lg font-bold">
+                <img src="{% static 'images/icons/whitefa.png' %}" alt="Logo" class="h-10 w-10 mr-1">
+                Brainytoes
+            </a>
             <span class="text-white text-3xl cursor-pointer md:hidden" onclick="openNav()">&#9776;</span>
             <div class="hidden md:block">
                 <ul>
