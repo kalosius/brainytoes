@@ -12,6 +12,7 @@ from googleapiclient.discovery import build
 from dotenv import load_dotenv
 from django.conf import settings
 from .forms import CustomUserCreationForm
+from django.contrib.auth.models import User
 
 
 load_dotenv()  # Load environment variables from .env file
@@ -32,15 +33,21 @@ def register(request):
 
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.success(request, f'You are now logged in as {user.username.capitalize()}')  
-                return redirect('landing_page')
+        username_or_email = request.POST['username']
+        password = request.POST['password']
+        try:
+            user = User.objects.get(email=username_or_email)
+            username = user.username
+        except User.DoesNotExist:
+            username = username_or_email
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, f'You are now logged in as {user.username.capitalize()}')  
+            return redirect('landing_page')
+        else:
+            form = AuthenticationForm(request, data=request.POST)
+            form.errors['__all__'] = 'Invalid login credentials'
     else:
         form = AuthenticationForm()
     return render(request, 'authentication/login.html', {'form': form})
