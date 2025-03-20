@@ -21,12 +21,17 @@ def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            # Get the backend from the user object
-            backend = 'django.contrib.auth.backends.ModelBackend'
-            login(request, user, backend=backend)
-            messages.success(request, f'Account Created Successfully for {user.username.capitalize()}!') 
-            return redirect('landing_page')
+            email = form.cleaned_data.get('email')
+            if User.objects.filter(email=email).exists():
+                messages.error(request, 'An account with this email already exists.')
+                form.errors[''] = 'An account with this email already exists.'
+            else:
+                user = form.save()
+                # Get the backend from the user object
+                backend = 'django.contrib.auth.backends.ModelBackend'
+                login(request, user, backend=backend)
+                messages.success(request, f'Account Created Successfully for {user.username.capitalize()}!') 
+                return redirect('landing_page')
     else:
         form = CustomUserCreationForm()
     return render(request, 'authentication/register.html', {'form': form})
@@ -47,7 +52,7 @@ def login_view(request):
             return redirect('landing_page')
         else:
             form = AuthenticationForm(request, data=request.POST)
-            form.errors['__all__'] = 'Invalid login credentials'
+            form.errors[''] = 'Invalid login credentials'
     else:
         form = AuthenticationForm()
     return render(request, 'authentication/login.html', {'form': form})
