@@ -15,48 +15,81 @@
        <center> <h1 style="font-size: 30px;">Manage Account</h1></center>
     </div>
    
-    <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8"> <!-- Added container class -->
+    <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
         <!-- User Details -->
-        <h2 class="text-2xl font-bold mb-4">User Details</h2>
-        <form id="user-details-form" onsubmit="updateDetails(event)">
-            <div class="mb-4">
-                <label for="username" class="block text-gray-700">Username</label>
-                <input type="text" id="username" name="username" class="border p-2 w-full" value="{{ user.username }}">
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-4 cursor-pointer flex items-center" onclick="toggleSection('user-details')">
+                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 19.121A3 3 0 117.243 17l-2.122 2.121zM4 4h16M4 8h16M4 12h16M4 16h16M4 20h16"></path></svg>
+                User Details
+            </h2>
+            <div id="user-details" class="hidden">
+                <form id="user-details-form" onsubmit="updateDetails(event)">
+                    <div class="mb-4">
+                        <label for="first_name" class="block text-gray-700">First Name</label>
+                        <input type="text" id="first_name" name="first_name" class="border p-2 w-full" value="{{ user.first_name }}">
+                    </div>
+                    <div class="mb-4">
+                        <label for="last_name" class="block text-gray-700">Last Name</label>
+                        <input type="text" id="last_name" name="last_name" class="border p-2 w-full" value="{{ user.last_name }}">
+                    </div>
+                    <div class="mb-4">
+                        <label for="username" class="block text-gray-700">Username</label>
+                        <input type="text" id="username" name="username" class="border p-2 w-full" value="{{ user.username }}">
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" class="border p-2 w-full" value="{{ user.email }}">
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="block text-gray-700">Password</label>
+                        <input type="password" id="password" name="password" class="border p-2 w-full">
+                    </div>
+                    <button type="submit" class="bg-blue-500 text-white p-2 mt-2">Update Details</button>
+                </form>
             </div>
-            <div class="mb-4">
-                <label for="email" class="block text-gray-700">Email</label>
-                <input type="email" id="email" name="email" class="border p-2 w-full" value="{{ user.email }}">
-            </div>
-            <div class="mb-4">
-                <label for="password" class="block text-gray-700">Password</label>
-                <input type="password" id="password" name="password" class="border p-2 w-full">
-            </div>
-            <button type="submit" class="bg-blue-500 text-white p-2 mt-2">Update Details</button>
-        </form>
-
+        </div>
     </div>
 
-    <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8"> <!-- Added container class -->
+    <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
         <!-- Subscription Management -->
-        <h2 class="text-2xl font-bold mb-4">Subscription Management</h2>
-        <div class="mb-4">
-            <label class="block text-gray-700">Current Plan</label>
-            <p class="border p-2 w-full">{{ user.subscription.plan }}</p>
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-4 cursor-pointer flex items-center" onclick="toggleSection('subscription-management')">
+                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zM12 2a10 10 0 100 20 10 10 0 000-20z"></path></svg>
+                Subscription Management
+            </h2>
+            <div id="subscription-management" class="hidden">
+                <div class="mb-4">
+                    <label class="block text-gray-700">Current Plan</label>
+                    <p class="border p-2 w-full">{{ user.subscription.plan }}</p>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Next Billing Date</label>
+                    <p class="border p-2 w-full">{{ user.subscription.next_billing_date }}</p>
+                </div>
+                <button onclick="manageSubscription()" class="bg-blue-500 text-white p-2 mt-2">Manage Subscription</button>
+            </div>
         </div>
-        <div class="mb-4">
-            <label class="block text-gray-700">Next Billing Date</label>
-            <p class="border p-2 w-full">{{ user.subscription.next_billing_date }}</p>
-        </div>
-        <button onclick="manageSubscription()" class="bg-blue-500 text-white p-2 mt-2">Manage Subscription</button>
     </div>
 
-    <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8"> <!-- Added container class -->
+    <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
         <!-- Other Account Settings -->
-        <h2 class="text-2xl font-bold mb-4">Other Account Settings</h2>
-        <button onclick="deleteAccount()" class="bg-red-500 text-white p-2 mt-2">Delete Account</button>
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-4 cursor-pointer flex items-center" onclick="toggleSection('other-settings')">
+                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                Other Account Settings
+            </h2>
+            <div id="other-settings" class="hidden">
+                <button onclick="deleteAccount()" class="bg-red-500 text-white p-2 mt-2">Delete Account</button>
+            </div>
+        </div>
     </div>
 
     <script>
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.classList.toggle('hidden');
+        }
+
         function updateDetails(event) {
             event.preventDefault();
             // Implement details update logic here
