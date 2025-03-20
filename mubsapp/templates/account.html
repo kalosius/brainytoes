@@ -22,7 +22,7 @@
                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 19.121A3 3 0 117.243 17l-2.122 2.121zM4 4h16M4 8h16M4 12h16M4 16h16M4 20h16"></path></svg>
                 User Details
             </h2>
-            <div id="user-details" class="hidden">
+            <div id="user-details" class="hidden transition-all duration-500 ease-in-out">
                 <form id="user-details-form" onsubmit="updateDetails(event)">
                     <div class="mb-4">
                         <label for="first_name" class="block text-gray-700">First Name</label>
@@ -57,7 +57,7 @@
                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zM12 2a10 10 0 100 20 10 10 0 000-20z"></path></svg>
                 Subscription Management
             </h2>
-            <div id="subscription-management" class="hidden">
+            <div id="subscription-management" class="hidden transition-all duration-500 ease-in-out">
                 <div class="mb-4">
                     <label class="block text-gray-700">Current Plan</label>
                     <p class="border p-2 w-full">{{ user.subscription.plan }}</p>
@@ -78,7 +78,7 @@
                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Other Account Settings
             </h2>
-            <div id="other-settings" class="hidden">
+            <div id="other-settings" class="hidden transition-all duration-500 ease-in-out">
                 <button onclick="deleteAccount()" class="bg-red-500 text-white p-2 mt-2">Delete Account</button>
             </div>
         </div>
@@ -88,6 +88,17 @@
         function toggleSection(sectionId) {
             const section = document.getElementById(sectionId);
             section.classList.toggle('hidden');
+            // Change font style, family, and color
+            const header = section.previousElementSibling;
+            if (section.classList.contains('hidden')) {
+                header.style.fontStyle = 'normal';
+                header.style.fontFamily = 'inherit';
+                header.style.color = 'inherit';
+            } else {
+                header.style.fontStyle = 'italic';
+                header.style.fontFamily = 'Arial, sans-serif';
+                header.style.color = 'blue';
+            }
         }
 
         function updateDetails(event) {
