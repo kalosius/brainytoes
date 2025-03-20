@@ -2,22 +2,24 @@
 {% block title %}Account Management{% endblock %}
 {% block content %}
 
-    <div class="container mx-auto mt-10">
-        {% for message in messages %}
-        <div id="message" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
-            <strong class="font-bold">{{ message }}!</strong>
-            <span id="close-message" class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 5.652a1 1 0 10-1.414-1.414L10 7.172 7.066 4.238a1 1 0 10-1.414 1.414L8.586 10l-2.934 2.934a1 1 0 101.414 1.414L10 12.828l2.934 2.934a1 1 0 001.414-1.414L11.414 10l2.934-2.934z"/></svg>
-            </span>
-        </div>
-        {% endfor %}  
-                
-       <center> <h1 style="font-size: 30px; color: #4A5568;">Manage Account</h1></center>
+<div class="container mx-auto mt-10">
+    {% for message in messages %}
+    <div id="message" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+        <strong class="font-bold">{{ message }}!</strong>
+        <span id="close-message" class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 5.652a1 1 0 10-1.414-1.414L10 7.172 7.066 4.238a1 1 0 10-1.414 1.414L8.586 10l-2.934 2.934a1 1 0 101.414 1.414L10 12.828l2.934 2.934a1 1 0 001.414-1.414L11.414 10l2.934-2.934z"/></svg>
+        </span>
     </div>
-   
-    <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
+    {% endfor %}  
+            
+    <center> <h1 style="font-size: 30px; color: #4A5568;">Manage Account</h1></center>
+</div>
+
+<div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
+    <!-- Combined Card -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <!-- User Details -->
-        <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <div class="border-b border-gray-300 pb-4 mb-4">
             <h2 class="text-2xl font-bold mb-4 cursor-pointer flex items-center" style="color: #4A5568;" onclick="toggleSection('user-details')">
                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 19.121A3 3 0 117.243 17l-2.122 2.121zM4 4h16M4 8h16M4 12h16M4 16h16M4 20h16"></path></svg>
                 User Details
@@ -48,11 +50,9 @@
                 </form>
             </div>
         </div>
-    </div>
 
-    <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
         <!-- Subscription Management -->
-        <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <div class="border-b border-gray-300 pb-4 mb-4">
             <h2 class="text-2xl font-bold mb-4 cursor-pointer flex items-center" style="color: #4A5568;" onclick="toggleSection('subscription-management')">
                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zM12 2a10 10 0 100 20 10 10 0 000-20z"></path></svg>
                 Subscription Management
@@ -69,11 +69,9 @@
                 <button onclick="manageSubscription()" class="bg-blue-500 text-white p-2 mt-2">Manage Subscription</button>
             </div>
         </div>
-    </div>
 
-    <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
         <!-- Other Account Settings -->
-        <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <div>
             <h2 class="text-2xl font-bold mb-4 cursor-pointer flex items-center" style="color: #4A5568;" onclick="toggleSection('other-settings')">
                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Other Account Settings
@@ -83,43 +81,44 @@
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        function toggleSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            section.classList.toggle('hidden');
-            // Change font style, family, and color
-            const header = section.previousElementSibling;
-            if (section.classList.contains('hidden')) {
-                header.style.fontStyle = 'normal';
-                header.style.fontFamily = 'inherit';
-                header.style.color = '#4A5568';
-            } else {
-                header.style.fontStyle = 'italic';
-                header.style.fontFamily = 'Arial, sans-serif';
-                header.style.color = '#4A5568';
-            }
+<script>
+    function toggleSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        section.classList.toggle('hidden');
+        // Change font style, family, and color
+        const header = section.previousElementSibling;
+        if (section.classList.contains('hidden')) {
+            header.style.fontStyle = 'normal';
+            header.style.fontFamily = 'inherit';
+            header.style.color = '#4A5568';
+        } else {
+            header.style.fontStyle = 'italic';
+            header.style.fontFamily = 'Arial, sans-serif';
+            header.style.color = '#4A5568';
         }
+    }
 
-        function updateDetails(event) {
-            event.preventDefault();
-            // Implement details update logic here
-            setTimeout(function() {
-                document.getElementById('message').innerText = 'Details updated successfully.';
-            }, 3000);
-        }
+    function updateDetails(event) {
+        event.preventDefault();
+        // Implement details update logic here
+        setTimeout(function() {
+            document.getElementById('message').innerText = 'Details updated successfully.';
+        }, 3000);
+    }
 
-        function manageSubscription() {
-            // Implement subscription management logic here
-            alert('Subscription management functionality to be implemented.');
-        }
+    function manageSubscription() {
+        // Implement subscription management logic here
+        alert('Subscription management functionality to be implemented.');
+    }
 
-        function deleteAccount() {
-            // Implement account deletion logic here
-            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-                alert('Account deletion functionality to be implemented.');
-            }
+    function deleteAccount() {
+        // Implement account deletion logic here
+        if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+            alert('Account deletion functionality to be implemented.');
         }
-    </script>
+    }
+</script>
 
 {% endblock %}
