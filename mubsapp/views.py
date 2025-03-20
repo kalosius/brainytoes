@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -11,34 +11,36 @@ import os
 from googleapiclient.discovery import build
 from dotenv import load_dotenv
 from django.conf import settings
+from .forms import CustomUserCreationForm
 
 
 load_dotenv()  # Load environment variables from .env file
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            # log in user
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            messages.success(request, f'User Account Created successfully. Welcome {user.username.capitalize()}!')
+            user = form.save()
+            # Get the backend from the user object
+            backend = 'django.contrib.auth.backends.ModelBackend'
+            login(request, user, backend=backend)
+            messages.success(request, f'Account Created Successfully for {user.username.capitalize()}!') 
             return redirect('landing_page')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'authentication/register.html', {'form': form})
 
-def user_login(request):
+def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            messages.success(request, f'Welcome back {user.username.capitalize()}')
-            return redirect('landing_page')
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, f'You are now logged in as {user.username.capitalize()}')  
+                return redirect('landing_page')
     else:
         form = AuthenticationForm()
     return render(request, 'authentication/login.html', {'form': form})
