@@ -18,7 +18,7 @@
         <div class="container mx-auto flex justify-between items-center">
             <a href="{% url 'landing_page' %}" class="flex items-center text-white text-lg font-bold">
                 <img src="{% static 'images/icons/whitefa.png' %}" alt="Logo" class="h-10 w-10 mr-1">
-                Brainytoes
+                BrainyToes
             </a>
             <span class="text-white text-3xl cursor-pointer md:hidden" onclick="openNav()">&#9776;</span>            <div class="hidden md:block">
                 <ul>
@@ -40,8 +40,13 @@
 
     <!-- Sidenav for small devices -->
     <div id="mySidenav" class="sidenav">
+        <a href="{% url 'landing_page' %}" class="flex items-center text-white text-lg font-bold smnav">
+            <img src="{% static 'images/icons/whitefa.png' %}" alt="Logo" class="h-10 w-10 mr-1">
+            BrainyToes
+        </a>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         {% if user.is_authenticated %}
+        <br>
             <a href="{% url 'landing_page' %}"><i class="fas fa-home icon"></i>Home</a>
             <a href="{% url 'books' %}"><i class="fas fa-book icon"></i>Books</a>
             <a href="{% url 'software' %}"><i class="fas fa-laptop-code icon"></i>Software</a>
