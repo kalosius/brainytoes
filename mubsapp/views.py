@@ -20,8 +20,13 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Registration successful.')
-            return redirect('login')
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            # log in user
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, f'User Account Created successfully. Welcome {user.username.capitalize()}!')
+            return redirect('landing_page')
     else:
         form = UserCreationForm()
     return render(request, 'authentication/register.html', {'form': form})
@@ -32,7 +37,7 @@ def user_login(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            messages.success(request, 'Login successful.')
+            messages.success(request, f'Welcome back {user.username.capitalize()}')
             return redirect('landing_page')
     else:
         form = AuthenticationForm()
