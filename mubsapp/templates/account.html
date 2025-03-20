@@ -12,13 +12,13 @@
         </div>
         {% endfor %}  
                 
-       <center> <h1 style="font-size: 30px;">Manage Account</h1></center>
+       <center> <h1 style="font-size: 30px; color: #4A5568;">Manage Account</h1></center>
     </div>
    
     <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
         <!-- User Details -->
         <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-            <h2 class="text-2xl font-bold mb-4 cursor-pointer flex items-center" onclick="toggleSection('user-details')">
+            <h2 class="text-2xl font-bold mb-4 cursor-pointer flex items-center" style="color: #4A5568;" onclick="toggleSection('user-details')">
                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 19.121A3 3 0 117.243 17l-2.122 2.121zM4 4h16M4 8h16M4 12h16M4 16h16M4 20h16"></path></svg>
                 User Details
             </h2>
@@ -53,7 +53,7 @@
     <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
         <!-- Subscription Management -->
         <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-            <h2 class="text-2xl font-bold mb-4 cursor-pointer flex items-center" onclick="toggleSection('subscription-management')">
+            <h2 class="text-2xl font-bold mb-4 cursor-pointer flex items-center" style="color: #4A5568;" onclick="toggleSection('subscription-management')">
                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zM12 2a10 10 0 100 20 10 10 0 000-20z"></path></svg>
                 Subscription Management
             </h2>
@@ -74,7 +74,7 @@
     <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
         <!-- Other Account Settings -->
         <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-            <h2 class="text-2xl font-bold mb-4 cursor-pointer flex items-center" onclick="toggleSection('other-settings')">
+            <h2 class="text-2xl font-bold mb-4 cursor-pointer flex items-center" style="color: #4A5568;" onclick="toggleSection('other-settings')">
                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Other Account Settings
             </h2>
@@ -93,11 +93,11 @@
             if (section.classList.contains('hidden')) {
                 header.style.fontStyle = 'normal';
                 header.style.fontFamily = 'inherit';
-                header.style.color = 'inherit';
+                header.style.color = '#4A5568';
             } else {
                 header.style.fontStyle = 'italic';
                 header.style.fontFamily = 'Arial, sans-serif';
-                header.style.color = 'blue';
+                header.style.color = '#4A5568';
             }
         }
 
