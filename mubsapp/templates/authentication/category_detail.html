@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Category Details{% endblock %}
+{% block content %}
+{% load static %}
+<div class="container mx-auto mt-10">
+    <div>
+        <label for="search" class="block text-sm font-medium text-gray-700">Search Software</label>
+        <input type="text" id="search" name="search" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" onkeyup="filterSoftware()">
+    </div>
+    </div>
+    <div id="software-list" class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for software in software_list %}
+    <a href="{% url 'software_detail' software.id %}" class="software-item bg-white shadow-md rounded-lg overflow-hidden" data-category="{{ software.category.id }}" data-name="{{ software.name | lower }}">
+        {% if software.cover and software.cover.url %}
+        <img src="{{ software.cover.url }}" alt="{{ software.name }}" class="w-full h-48 object-cover">
+        {% else %}
+        <img src="{% static 'images/admin.png' %}" alt="Default Cover" class="w-full h-48 object-cover">
+        {% endif %}
+        <div class="p-4">
+            <h2 class="text-xl font-semibold">{{ software.name }}</h2>
+            <p class="mt-2 text-gray-600">{{ software.description }}</p>
+            <p class="mt-2 text-gray-600">Version: {{ software.version }}</p>
+        </div>
+    </a>
+    {% endfor %}
+    
+</div>
+
+
+
+
+
+
+{% endblock %}

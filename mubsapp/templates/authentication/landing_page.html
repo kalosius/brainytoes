@@ -45,10 +45,10 @@
     <h2 class="text-2xl font-semibold text-gray-700 mb-4">Categories</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {% for category in categories %}
-            <div class="card bg-white shadow-md rounded-lg p-4">
+            <a href="{% url 'category_detail' category.id %}" class="card bg-white shadow-md rounded-lg p-4">
                 <img src="{{ category.image.url }}" alt="{{ category.name }}" class="w-full h-32 object-cover mb-2 rounded">
                 <h3 class="text-xl font-bold">{{ category.name }}</h3>
-            </div>
+            </a>
         {% endfor %}
     </div>
 
@@ -70,6 +70,7 @@
             <div class="card bg-white shadow-md rounded-lg p-4">
                 <img src="{{ book.cover.url }}" alt="{{ book.title }}" class="w-full h-32 object-cover mb-2 rounded">
                 <h3 class="text-xl font-bold">{{ book.title }}</h3>
+                <p class="text-gray-700">Author: {{ book.author }}</p>
             </div>
         {% endfor %}  
     </div>

@@ -197,3 +197,11 @@ def search_results(request):
         'software': software,
     }
     return render(request, 'authentication/search_results.html', context)
+
+def category_detail(request, category_id):
+    category = get_object_or_404(SoftwareCategory, id=category_id)
+    software_list = Software.objects.filter(category=category)
+    return render(request, 'authentication/category_detail.html', {
+        'category': category,
+        'software_list': software_list
+    })
