@@ -54,13 +54,18 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+            ],
+            'loaders': [
+                ('django.template.loaders.cached.Loader', [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                ]),
             ],
         },
     },
@@ -73,7 +78,7 @@ WSGI_APPLICATION = 'brainytoes.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600, ssl_require=True)
 }
 
 
@@ -145,3 +150,12 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+# Caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': os.getenv('REDIS_URL', 'redis://127.0.0.1:6379/1'),
+    }
+}
