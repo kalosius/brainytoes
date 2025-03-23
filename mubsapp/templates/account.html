@@ -10,9 +10,8 @@
             <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 5.652a1 1 0 10-1.414-1.414L10 7.172 7.066 4.238a1 1 0 10-1.414 1.414L8.586 10l-2.934 2.934a1 1 0 101.414 1.414L10 12.828l2.934 2.934a1 1 0 001.414-1.414L11.414 10l2.934-2.934z"/></svg>
         </span>
     </div>
-    {% endfor %}  
-            
-    <center> <h1 style="font-size: 30px; color: #4A5568;">Manage Account</h1></center>
+    {% endfor %}
+    <!-- Remove the div for displaying messages -->
 </div>
 
 <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
@@ -85,8 +84,6 @@
     <center><h1>.......More Features Coming Soon.......</h1></center>
 </div>
 
-
-
 <script>
     function toggleSection(sectionId) {
         const section = document.getElementById(sectionId);
@@ -119,14 +116,35 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                document.getElementById('message').innerText = 'Details updated successfully.';
+                showAlert('Details updated successfully.', 'success');
             } else {
-                document.getElementById('message').innerText = 'Failed to update details.';
+                showAlert('Failed to update details.', 'error');
             }
         })
         .catch(error => {
-            document.getElementById('message').innerText = 'An error occurred.';
+            showAlert('An error occurred.', 'error');
         });
+    }
+
+    function showAlert(message, type) {
+        const alertBox = document.createElement('div');
+        alertBox.className = `fixed top-4 right-4 px-4 py-3 rounded shadow-lg text-white ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
+        alertBox.innerHTML = `
+            <strong class="font-bold">${type === 'success' ? 'Success' : 'Error'}:</strong>
+            <span class="block sm:inline">${message}</span>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                <svg class="fill-current h-6 w-6 text-white" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 5.652a1 1 0 10-1.414-1.414L10 7.172 7.066 4.238a1 1 0 10-1.414 1.414L8.586 10l-2.934 2.934a1 1 0 101.414 1.414L10 12.828l2.934 2.934a1 1 0 001.414-1.414L11.414 10l2.934-2.934z"/></svg>
+            </span>
+        `;
+        document.body.appendChild(alertBox);
+
+        alertBox.querySelector('svg').addEventListener('click', () => {
+            alertBox.remove();
+        });
+
+        setTimeout(() => {
+            alertBox.remove();
+        }, 5000);
     }
 
     function manageSubscription() {
