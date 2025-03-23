@@ -25,7 +25,8 @@
                 User Details
             </h2>
             <div id="user-details" class="hidden transition-all duration-500 ease-in-out">
-                <form id="user-details-form" onsubmit="updateDetails(event)">
+                <form id="user-details-form" method="POST" action="{% url 'update_user_details' %}" onsubmit="updateDetails(event)">
+                    {% csrf_token %}
                     <div class="mb-4">
                         <label for="first_name" class="block text-gray-700">First Name</label>
                         <input type="text" id="first_name" name="first_name" class="border p-2 w-full" value="{{ user.first_name }}">
@@ -81,7 +82,7 @@
             </div>
         </div>
     </div>
-    <h1>.......More Features Coming Soon.......</h1>
+    <center><h1>.......More Features Coming Soon.......</h1></center>
 </div>
 
 
@@ -105,10 +106,27 @@
 
     function updateDetails(event) {
         event.preventDefault();
-        // Implement details update logic here
-        setTimeout(function() {
-            document.getElementById('message').innerText = 'Details updated successfully.';
-        }, 3000);
+        const form = document.getElementById('user-details-form');
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('message').innerText = 'Details updated successfully.';
+            } else {
+                document.getElementById('message').innerText = 'Failed to update details.';
+            }
+        })
+        .catch(error => {
+            document.getElementById('message').innerText = 'An error occurred.';
+        });
     }
 
     function manageSubscription() {

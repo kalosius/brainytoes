@@ -13,6 +13,8 @@ from dotenv import load_dotenv
 from django.conf import settings
 from .forms import CustomUserCreationForm
 from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 
 load_dotenv()  # Load environment variables from .env file
@@ -205,3 +207,18 @@ def category_detail(request, category_id):
         'category': category,
         'software_list': software_list
     })
+
+@login_required
+@csrf_exempt
+def update_user_details(request):
+    if request.method == 'POST':
+        user = request.user
+        user.first_name = request.POST.get('first_name')
+        user.last_name = request.POST.get('last_name')
+        user.username = request.POST.get('username')
+        user.email = request.POST.get('email')
+        if request.POST.get('password'):
+            user.set_password(request.POST.get('password'))
+        user.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False})

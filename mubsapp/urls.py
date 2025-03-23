@@ -19,6 +19,7 @@ urlpatterns = [
     path('account/', views.account, name='account'),
     path('search/', views.search_results, name='search_results'),
     path('category/<int:category_id>/', views.category_detail, name='category_detail'),
+    path('update_user_details/', views.update_user_details, name='update_user_details'),
     # path('register/', views.register, name='register'),
     # path('auth/', include('django.contrib.auth.urls')),
     # path('social/', include('social_django.urls', namespace='social')),
