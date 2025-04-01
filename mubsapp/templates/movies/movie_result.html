@@ -49,4 +49,37 @@
   <h1 class="text-2xl font-bold">Search for a movie</h1>
 {% endif %}
 
+<!-- Modal for full image -->
+<div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden">
+  <div class="relative">
+    <button id="closeModal" class="absolute top-2 right-2 text-white text-2xl">&times;</button>
+    <img id="modalImage" src="" alt="Full Image" class="max-w-full max-h-screen">
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const closeModal = document.getElementById('closeModal');
+
+    document.querySelectorAll('.movie-card img').forEach(img => {
+      img.addEventListener('click', () => {
+        modalImage.src = img.src.replace('/w300', '/original');
+        modal.classList.remove('hidden');
+      });
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+      }
+    });
+  });
+</script>
+
 {% endblock %}
