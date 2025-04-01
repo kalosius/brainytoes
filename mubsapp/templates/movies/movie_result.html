@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Search form -->
+<form method="get" action="{% url 'movie_result' %}">
+  <input type="text" name="query" placeholder="Search for movies..." value="{{ query }}">
+  <button type="submit">Search</button>
+</form>
+
+<!-- Results section -->
+{% if query %}
+  <h1>Results for "{{ query }}"</h1>
+  <div class="movie-grid">
+    {% for movie in movies %}
+      <div class="movie-card">
+        {% if movie.poster_path %}
+          <img src="https://image.tmdb.org/t/p/w300{{ movie.poster_path }}" 
+               alt="{{ movie.title }} Poster">
+        {% endif %}
+        <h3>{{ movie.title }}</h3>
+        <p>{{ movie.release_date|slice:":4" }}</p>
+        <p>⭐ {{ movie.vote_average }}</p>
+        <p class="overview">{{ movie.overview|truncatechars:150 }}</p>
+      </div>
+    {% empty %}
+      <p>No movies found.</p>
+    {% endfor %}
+  </div>
+{% else %}
+  <h1>Search for a movie</h1>
+{% endif %}
+
+{% endblock %}
