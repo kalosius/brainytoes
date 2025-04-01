@@ -13,12 +13,23 @@
   </div>
 </form>
 
+<!-- Hover effects for movie cards -->
+<style>
+  .movie-card {
+    transition: transform 0.2s ease-in-out;
+  }
+  .movie-card:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+</style>
+
 <!-- Results section -->
 {% if query %}
   <h1 class="text-2xl font-bold mb-4">Results for "{{ query }}"</h1>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
     {% for movie in movies %}
-      <div class="bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="bg-white shadow-md rounded-lg overflow-hidden movie-card">
         {% if movie.poster_path %}
           <img src="https://image.tmdb.org/t/p/w300{{ movie.poster_path }}" 
                alt="{{ movie.title }} Poster" class="w-full h-48 object-cover">
