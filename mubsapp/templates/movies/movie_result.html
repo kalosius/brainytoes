@@ -2,32 +2,40 @@
 {% block content %}
 
 <!-- Search form -->
-<form method="get" action="{% url 'movie_result' %}">
-  <input type="text" name="query" placeholder="Search for movies..." value="{{ query }}">
-  <button type="submit">Search</button>
+<form method="get" action="{% url 'movie_result' %}" class="mb-6">
+  <div class="flex items-center">
+    <input type="text" name="query" placeholder="Search for movies..." value="{{ query }}" 
+           class="flex-grow p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <button type="submit" 
+            class="p-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600">
+      Search
+    </button>
+  </div>
 </form>
 
 <!-- Results section -->
 {% if query %}
-  <h1>Results for "{{ query }}"</h1>
-  <div class="movie-grid">
+  <h1 class="text-2xl font-bold mb-4">Results for "{{ query }}"</h1>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
     {% for movie in movies %}
-      <div class="movie-card">
+      <div class="bg-white shadow-md rounded-lg overflow-hidden">
         {% if movie.poster_path %}
           <img src="https://image.tmdb.org/t/p/w300{{ movie.poster_path }}" 
-               alt="{{ movie.title }} Poster">
+               alt="{{ movie.title }} Poster" class="w-full h-48 object-cover">
         {% endif %}
-        <h3>{{ movie.title }}</h3>
-        <p>{{ movie.release_date|slice:":4" }}</p>
-        <p>⭐ {{ movie.vote_average }}</p>
-        <p class="overview">{{ movie.overview|truncatechars:150 }}</p>
+        <div class="p-4">
+          <h3 class="text-lg font-semibold">{{ movie.title }}</h3>
+          <p class="text-gray-500 text-sm">{{ movie.release_date|slice:":4" }}</p>
+          <p class="text-yellow-500 font-bold">⭐ {{ movie.vote_average }}</p>
+          <p class="text-gray-700 text-sm mt-2">{{ movie.overview|truncatechars:150 }}</p>
+        </div>
       </div>
     {% empty %}
-      <p>No movies found.</p>
+      <p class="text-gray-500">No movies found.</p>
     {% endfor %}
   </div>
 {% else %}
-  <h1>Search for a movie</h1>
+  <h1 class="text-2xl font-bold">Search for a movie</h1>
 {% endif %}
 
 {% endblock %}
