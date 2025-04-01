@@ -18,18 +18,18 @@ from django.views.decorators.csrf import csrf_exempt
 import requests
 from django.urls import reverse  # Ensure reverse is imported for URL resolution
 
+load_dotenv()  # Load environment variables from .env file
+
 def movie_result(request):
     query = request.GET.get('query', '')
     movies = []
     if query:
-        # Replace 'YOUR_API_KEY' with your actual API key
-        api_url = f"https://api.themoviedb.org/3/search/movie?api_key=cb31935fc07792f615d11de334081eb4&query={query}"
+        api_key = os.getenv('MOVIE_API_KEY')  # Access API key from .env
+        api_url = f"https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={query}"
         response = requests.get(api_url)
         if response.status_code == 200:
             movies = response.json().get('results', [])
     return render(request, 'movies/movie_result.html', {'query': query, 'movies': movies})
-
-load_dotenv()  # Load environment variables from .env file
 
 def register(request):
     if request.method == 'POST':
